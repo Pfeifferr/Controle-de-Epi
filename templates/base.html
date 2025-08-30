@@ -1,0 +1,65 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}EPI — Gestão de Colaboradores{% endblock %}</title>
+    <link rel="icon" href="{% static 'img/logo.svg' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tables.css' %}">
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-inner container">
+        <a class="logo" href="/colaboradores/">
+          <img src="{% static 'img/logo.svg' %}" alt="Logo">
+          <span>EPI Manager</span>
+        </a>
+        <div class="search">
+          <form action="/colaboradores/" method="get">
+            <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Buscar colaboradores (CTRL+K)">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <section class="hero card">
+        <img src="{% static 'img/hero.jpg' %}" alt="Segurança e EPIs">
+        <div class="overlay"></div>
+        <div class="content">
+          <h1>Gestão de Colaboradores</h1>
+          <p>Organize cadastro, mantenha dados atualizados e acelere o processo de empréstimo de EPIs.</p>
+        </div>
+      </section>
+
+      {% if messages %}
+      <div class="grid">
+        {% for m in messages %}
+          <div class="alert">{{ m }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% block content %}{% endblock %}
+
+      <footer class="footer">
+        <div class="container">
+          <span>© 2025 EPI Manager — Segurança do Trabalho</span>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      document.addEventListener('keydown', (e)=>{
+        if((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==='k'){
+          const input = document.querySelector('.search input');
+          if(input){ e.preventDefault(); input.focus(); input.select(); }
+        }
+      });
+    </script>
+  </body>
+</html>

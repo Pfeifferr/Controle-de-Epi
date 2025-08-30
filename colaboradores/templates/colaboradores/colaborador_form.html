@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{% if view.object %}Editar Colaborador{% else %}Novo Colaborador{% endif %}{% endblock %}
+{% block content %}
+  <div class="grid">
+    <div class="card">
+      <div class="card-inner">
+        <h2 style="margin:0 0 12px">{% if view.object %}Editar{% else %}Novo{% endif %} Colaborador</h2>
+        <form method="post" class="form" novalidate>
+          {% csrf_token %}
+          <div class="row">
+            <div>
+              <label>Nome</label>
+              {{ form.nome }}
+              {% for e in form.nome.errors %}<div class="hint" style="color:#ff9f9f">{{ e }}</div>{% endfor %}
+            </div>
+            <div>
+              <label>CPF (11 dígitos)</label>
+              {{ form.cpf }}
+              {% for e in form.cpf.errors %}<div class="hint" style="color:#ff9f9f">{{ e }}</div>{% endfor %}
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label>Matrícula</label>
+              {{ form.matricula }}
+              {% for e in form.matricula.errors %}<div class="hint" style="color:#ff9f9f">{{ e }}</div>{% endfor %}
+            </div>
+            <div>
+              <label>Ativo</label>
+              {{ form.ativo }}
+            </div>
+          </div>
+          <div class="actions">
+            <a href="{% url 'colaboradores:list' %}" class="btn">Cancelar</a>
+            <button class="btn primary" type="submit">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
